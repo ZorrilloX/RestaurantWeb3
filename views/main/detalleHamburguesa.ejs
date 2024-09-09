@@ -1,0 +1,120 @@
+<%- include('../../components/headerUser.ejs') %>
+
+<style>
+    body {
+        background-color: #f7dc7a;
+    }
+    .card {
+        border-radius: 10px;
+    }
+    .rating {
+        color: #f39c12;
+    }
+    .img-hamburguesa {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    .btn-comer {
+        margin-top: 20px;
+        background-color: #f39c12;
+        border-color: #f39c12;
+        color: white;
+    }
+    #formReview {
+        display: none;
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Foto de la hamburguesa -->
+    <div class="text-center mb-4">
+        <img src="/images/hamburguesas/<%= hamburguesa.id %>.jpg" alt="Imagen de <%= hamburguesa.nombre %>" class="img-hamburguesa"
+        onerror="this.src='/images/hamburguesas/hamburguesaDefecto.jpg'">
+    </div>
+
+    <!-- Título y descripción de la hamburguesa -->
+    <div class="text-center mb-4">
+        <h1 class="display-4"><%= hamburguesa.nombre %></h1>
+        <p class="lead"><%= hamburguesa.descripcion %></p>
+    </div>
+
+    <!-- Estrellas de valoración -->
+    <div class="text-center mb-4">
+        <div class="rating">
+            <% for(let i = 0; i < hamburguesa.promedioPuntaje; i++) { %>
+                <span class="fa fa-star <%= i < hamburguesa.promedioPuntaje ? 'checked' : '' %>"></span>
+            <% } %>
+        </div>
+        <p><small>Promedio de puntaje: <%= hamburguesa.promedioPuntaje %> / 5</small></p>
+    </div>
+
+    <!-- Botón 'Comer' para mostrar el formulario de opinión -->
+    <div class="text-center mb-4">
+        <button class="btn btn-comer btn-lg" id="btnComer">Comer</button>
+    </div>
+
+    <!-- Formulario para dejar una nueva opinión (oculto por defecto) -->
+    <div id="formReview">
+        <h4>¿Te ha gustado? ¡Deja tu opinión!</h4>
+        <form action="/reviewsYsabor/<%= hamburguesa.ID_restaurante %>/<%= hamburguesa.id %>" method="POST">
+            <div class="form-group">
+                <label for="puntaje">Puntaje:</label>
+                <select name="puntaje" class="form-control" id="puntaje" required>
+                    <option value="1">1 Estrella</option>
+                    <option value="2">2 Estrellas</option>
+                    <option value="3">3 Estrellas</option>
+                    <option value="4">4 Estrellas</option>
+                    <option value="5">5 Estrellas</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="review">Tu opinión:</label>
+                <textarea name="review" class="form-control" id="review" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <!-- Mostrar opiniones -->
+    <h3>Opiniones</h3>
+    <div>
+        <% if(valoraciones.length === 0) { %>
+            <div style="padding: 100px; color: rgb(100, 100, 100);">
+                <h5>No hay opiniones para esta hamburguesa </h5>
+            </div>
+        <% } else {%>
+            <% valoraciones.forEach(valoracion => { %>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= valoracion.usuario.nombre %> dice:</h5>
+                        <p class="card-text"><%= valoracion.review %></p>
+                        <div class="rating">
+                            <% for(let i = 0; i < valoracion.puntaje; i++) { %>
+                                <span class="fa fa-star <%= i < valoracion.puntaje ? 'checked' : '' %>"></span>
+                            <% } %>
+                        </div>
+                        <small class="text-muted">Fecha: <%= valoracion.createdAt %></small>
+                    </div>
+                </div>
+            <% }) %>    
+        <% } %>
+        
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formReview = document.getElementById('formReview');
+    formReview.style.display = 'none';  // Asegurarse que está oculto desde el inicio
+
+    document.getElementById('btnComer').addEventListener('click', function() {
+        formReview.style.display = formReview.style.display === 'none' ? 'block' : 'none';
+    });
+});
+
+</script>
+
+<%- include('../../components/footer.ejs') %>

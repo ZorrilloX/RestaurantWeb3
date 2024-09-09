@@ -1,0 +1,43 @@
+<%- include('../../components/headerUser.ejs') %>
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-6 col-md-8 col-sm-10 col-xxl-4">
+                <div class="card mt-3">
+                    <div class="card-body">
+
+                        <% if (error) { %>
+                            <div class="alert alert-danger">
+                                <%= error %>
+                            </div>
+                        <% } %>
+
+
+                        <h5 class="card-title">Registrar Usuario</h5>
+                        <form method="post" action="/usuarios/create">
+                            <div class="mt-2">
+                                <label>Nombre de Usuario</label>
+                                <input class="form-control" type="text" name="nombre" placeholder="Nombre de Usuario" >
+                            </div>
+                            <div class="mt-2">
+                                <label>Correo electronico</label>
+                                <input type="email" class="form-control"  name="correo" placeholder="Correo electronico">
+                            </div>
+                            <div class="mt-2">
+                                <label>Contraseña</label>
+                                <input class="form-control" type="password" name="password" placeholder="Contraseña">
+                            </div>
+                            <div class="mt-2">
+                                <input class="btn btn-primary" type="submit" value="Enviar">
+                            </div>
+                            <div class="mt-2"></div>
+                                <label>ya tienes una cuenta? <a href="/usuarios/login">Login</a></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../../components/footer.ejs') %>

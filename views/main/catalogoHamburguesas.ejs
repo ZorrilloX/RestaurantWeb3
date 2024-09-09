@@ -1,0 +1,74 @@
+<%- include('../../components/headerUser.ejs') %>
+
+<style>
+    body {
+        background-color: #f7dc7a; /* Color amarillo suave */
+    }
+    .card {
+        border-radius: 10px;
+    }
+    .card-img-top {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+    .rating {
+        color: #f39c12;
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Título del catálogo -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Hamburguesas en <%= restaurante.nombre %></h1>
+        <p class="lead">Explora las deliciosas hamburguesas que ofrecemos</p>
+    </div>
+    
+    <!-- Fila de tarjetas de hamburguesas -->
+    <div class="row">
+        <% if(hamburguesas.length === 0) {%>
+            <div style="padding: 140px; color: rgb(100, 100, 100);"></div>
+                <h5>No hay hamburguesas disponibles o nos clausuraron :"c</h5>
+            </div>
+        <% } else { %>
+            <% hamburguesas.forEach(hamburguesa => { %>
+                <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                    <div class="card shadow-sm border-light">
+                        <a href="/reviewsYsabor/<%= restaurante.id%>/<%= hamburguesa.id %>">
+                            <img src="/images/hamburguesas/<%= hamburguesa.id %>.jpg" class="card-img-top" 
+                            alt="<%= hamburguesa.nombre %>" onerror="this.src='/images/hamburguesas/hamburguesaDefecto.jpg'">
+                        </a>
+                        <div class="card-body">
+                            <div style="display: flex; gap: 20px; justify-content: space-between;">
+                                <h5 class="card-title"><%= hamburguesa.nombre %></h5>
+                                <h4 class="card-title"><%= hamburguesa.precio %>Bs</h4>
+                            </div>
+                            
+                            <p class="card-text"><%= hamburguesa.descripcion %></p>
+                            
+                            <!-- Mostrar el puntaje -->
+                            <div class="rating">
+                                <% for(let i = 0; i < hamburguesa.promedioPuntaje; i++) { %>
+                                    <span class="fa fa-star <%= i < hamburguesa.puntaje ? 'checked' : '' %>"></span>
+                                <% } %>
+                            </div>
+                            <p class="text-muted"><%= hamburguesa.numeroReviews %> opiniones</p>
+                            
+                            <!-- Botón para dejar una review -->
+                            <a href="/reviewsYsabor/<%= restaurante.id%>/<%= hamburguesa.id %>" class="btn btn-primary">Comer y Opinar!</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../../components/footer.ejs') %>

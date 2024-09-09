@@ -1,0 +1,55 @@
+<%- include('../../components/header.ejs') %>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3>Lista de reviews</h3>
+                    </div>
+                    <div class="mb-3" style="display: flex; gap: 30px;">
+                        <a class="btn btn-success" href="../restaurantes">Volver a Restaurantes</a>
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID_Review</th>
+                                    <th>ID_Usuario</th>
+                                    <th>ID_Hamburguesa</th>
+                                    <th>Puntaje</th>
+                                    <th>Review</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% valoraciones.forEach(valoracion => { %>
+                                    <tr>
+                                        <td><%= valoracion.id %></td>
+                                        <td><%= valoracion.ID_usuario %></td>
+                                        <td><%= valoracion.ID_hamburguesa %></td>
+                                        <td><%= valoracion.puntaje %></td>
+                                        <td><%= valoracion.review %></td> <!--nuestro restaurant-->
+                                        <!-- boton para ver catalogo-->
+
+                                        <td>
+                                            
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../components/footer.ejs') %>

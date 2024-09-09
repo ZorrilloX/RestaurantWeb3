@@ -1,0 +1,59 @@
+<%- include('../../components/header.ejs') %>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h3>Lista de Hamburguesas</h3>
+                    </div>
+                    <div class="mb-3" style="display: flex; gap: 30px;">
+                        <a class="btn btn-primary" href="/hamburguesas/0/create"> + hamburguesa</a>
+                        <a class="btn btn-success" href="../restaurantes">Volver a Restaurantes</a>
+                    </div>
+                    <div>
+                        
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Descripción</th>
+                                    <th>Precio</th>
+                                    <th>Restaurante</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% hamburguesas.forEach(hamburguesa => { %>
+                                    <tr>
+                                        <td><%= hamburguesa.id %></td>
+                                        <td><%= hamburguesa.nombre %></td>
+                                        <td><%= hamburguesa.descripcion %></td>
+                                        <td><%= hamburguesa.precio %>Bs</td>
+                                        <td><%= restaurante?.nombre %></td> <!--nuestro restaurant-->
+                                        <!-- boton para ver catalogo-->
+
+                                        <td>
+                                            <a class="btn btn-warning" href="/hamburguesas/<%= hamburguesa.id %>/edit">Editar</a>
+                                        </td>
+                                        <td>
+                                            <form method="post" action="/hamburguesas/<%= hamburguesa.ID_restaurante%>/<%=hamburguesa.id%>/delete"
+                                                onsubmit="return confirm('¿Está seguro que desea eliminar?')">
+                                                <input class="btn btn-danger" type="submit" value="Eliminar">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../components/footer.ejs') %>

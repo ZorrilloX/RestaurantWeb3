@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reviewsYsabor</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+    <style>
+        .text-yellow { color: #ffd32a; }
+        .title-custom {
+            font-size: 2rem; /* Cambia el tamaño según lo necesites */
+            font-weight: bold; /* Para que esté en negrita */
+        }
+        body {padding-top: 60px;
+            display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Distribuye el espacio entre el contenido y el footer */
+    min-height: 100vh;  }
+        .footer {
+            background-color: #b51f2d; 
+            color: #ffffff;
+            padding: 30px 0; 
+            
+            bottom: 0px;
+            border-top: 1px solid #e9ecef;
+        }
+        .footer a {
+            color: #ffffff; /* Color de los enlaces */
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #ffd32a; /* Color al pasar el ratón */
+            text-decoration: underline;
+        }
+        .social-icons a {
+            color: #ffffff; /* Color de los íconos sociales */
+            font-size: 1.5rem; /* Tamaño de los íconos */
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-danger border-bottom border-body fixed-top">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-yellow" aria-current="page" href="/reviewsYsabor"><%=  usuario?.nombre || 'Invitado' %></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Perfil
+                    </a>
+                    <ul class="dropdown-menu">
+                        <% if( !usuario) {%>
+                            <li><a class="dropdown-item" href="/usuarios/create">Registrate</a></li>
+                            <li><a class="dropdown-item" href="/usuarios/login">Iniciar Sesión</a></li>
+                        <% } else {%>
+                            <li><a class="dropdown-item" href="/usuarios/logout">Cerrar la sesión</a></li>
+                        <% } %>
+                        
+                    </ul>
+                </li>
+            </ul>
+            <div class="flex-grow-1 text-center">
+                <a class="navbar-brand title-custom text-warning" href="/reviewsYsabor">reviewsYsabor</a>
+            </div>
+            <div class="ms-auto">
+                <a class="navbar-brand" href="/reviewsYsabor">por Quinteros R Mateo</a>
+            </div>
+        </div>
+    </div>
+</nav>

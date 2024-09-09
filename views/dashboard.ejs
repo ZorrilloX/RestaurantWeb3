@@ -1,0 +1,51 @@
+<%- include('../components/headerUser.ejs') %>
+
+<style>
+    body {
+        background-color: #f7dc7a; /* Color amarillo suave */
+    }
+    .card {
+        border-radius: 10px;
+    }
+    .card-img-top {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Título del catálogo -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Catálogo de Restaurantes</h1>
+        <p class="lead">Explora los mejores restaurantes de la ciudad</p>
+    </div>
+    
+    <!-- Fila de tarjetas de restaurantes -->
+    <div class="row">
+        <% restaurantes.forEach(restaurante => { %>
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                <div class="card shadow-sm border-light">
+                    <a href="/reviewsYsabor/<%= restaurante.id %>">
+                        <img src="/images/restaurantes/<%= restaurante.id %>.jpg" class="card-img-top" 
+                        alt="<%= restaurante.nombre %>" onerror="this.src='/images/restaurantes/restauranteDefecto.jpg'">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= restaurante.nombre %></h5>
+                        <p class="card-text"><%= restaurante.descripcion %></p>
+                        <a href="/reviewsYsabor/<%= restaurante.id %>" class="btn btn-primary">Entrar a Ver</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('../components/footer.ejs') %>

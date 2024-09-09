@@ -1,0 +1,61 @@
+<%- include('../../components/header.ejs') %>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xxl-4">
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title"><% if (hamburguesa) { %>Editar Hamburguesa<% } else { %>Registrar Hamburguesa<% } %></h5>
+                    <form method="post" action="<% if (hamburguesa) { %>
+                        /hamburguesas/<%= hamburguesa.id %>/edit
+                    <% } else { %>
+                        /hamburguesas/create
+                    <% } %>" enctype="multipart/form-data">
+                        <div class="mt-2">
+                            <label>Nombre de la Hamburguesa</label>
+                            <input class="form-control" type="text" name="nombre" placeholder="Nombre de la Hamburguesa"
+                                value="<%= hamburguesa && hamburguesa.nombre %>">
+                        </div>
+                        <div class="mt-2">
+                            <label>Descripción</label>
+                            <input class="form-control" type="text" name="descripcion" placeholder="Descripción"
+                                value="<%= hamburguesa && hamburguesa.descripcion %>">
+                        </div>
+                        <div class="mt-2">
+                            <label>Precio</label>
+                            <input class="form-control" type="number" name="precio" placeholder="Precio" 
+                                value="<%= hamburguesa && hamburguesa.precio %>">
+                        </div>
+                        <div class="mt-2">
+                            <label>Restaurante</label>
+                            <% if (hamburguesa) {%> <!--if que pregunta si estas editando o creando para no tener conflictos con poner una burger en otro restaurante-->
+                                <select class="form-control" name="ID_restaurante" disabled>
+                                    <% restaurantes.forEach(restaurante => { %>
+                                        <option value="<%= restaurante.id %>" <%= hamburguesa && hamburguesa.ID_restaurante === restaurante.id ? 'selected' : '' %>>
+                                            <%= restaurante.nombre %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            <%} else {%>
+                                <select class="form-control" name="ID_restaurante">
+                                    <% restaurantes.forEach(restaurante => { %>
+                                        <option value="<%= restaurante.id %>" <%= hamburguesa && hamburguesa.ID_restaurante === restaurante.id ? 'selected' : '' %>>
+                                            <%= restaurante.nombre %>
+                                        </option>
+                                    <% }) %>
+                                </select>
+                            <% } %>   
+                        </div>
+                        <div class="mt-2">
+                            <label>Cargar su Fotito</label>
+                            <input class="form-control" type="file" name="imagen">
+                        </div>
+                        <div class="mt-2">
+                            <input class="btn btn-primary" type="submit" value="Enviar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../../components/footer.ejs') %>
